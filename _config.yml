@@ -74,14 +74,18 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-theme: hexo-theme-laughing
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/shiliangL/blog.git
+  repo: git@github.com:shiliangL/shiliangL.io.git
   branch: master
 # https://shiliangl.github.io/blog/
 # hexo clean
 # hexo d -g
+
+
+# 定义样式
+# themes/next/source/css/_custom/custom.styl

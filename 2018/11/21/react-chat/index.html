@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="react,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta name="keywords" content="Hexo, Nodejs, Reactjs, Vuejs, flutter, JavaScript">
-<meta property="og:type" content="website">
-<meta property="og:title" content="shiliangL">
-<meta property="og:url" content="https://github.com/shiliangL/shiliangL/index.html">
+<meta name="description" content="react全家桶,更好的理解redux,用装饰器的写法使用 react-redux，socket-io即时通信  本文基于MacOS系统,基本的开发环境安装配置如果没有安装好请自行百度安装    后台数据库mongoDB安装 使用homebrew安装mongodb  brew install mongodb mongo –version 查看安装版本 新版开箱即用，不用像之前要配什么DB文件了">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="更好的理解react-redux">
+<meta property="og:url" content="https://github.com/shiliangL/shiliangL/2018/11/21/react-chat/index.html">
 <meta property="og:site_name" content="shiliangL">
+<meta property="og:description" content="react全家桶,更好的理解redux,用装饰器的写法使用 react-redux，socket-io即时通信  本文基于MacOS系统,基本的开发环境安装配置如果没有安装好请自行百度安装    后台数据库mongoDB安装 使用homebrew安装mongodb  brew install mongodb mongo –version 查看安装版本 新版开箱即用，不用像之前要配什么DB文件了">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-21T10:16:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shiliangL">
+<meta name="twitter:title" content="更好的理解react-redux">
+<meta name="twitter:description" content="react全家桶,更好的理解redux,用装饰器的写法使用 react-redux，socket-io即时通信  本文基于MacOS系统,基本的开发环境安装配置如果没有安装好请自行百度安装    后台数据库mongoDB安装 使用homebrew安装mongodb  brew install mongodb mongo –version 查看安装版本 新版开箱即用，不用像之前要配什么DB文件了">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/shiliangL/shiliangL/">
+  <link rel="canonical" href="https://github.com/shiliangL/shiliangL/2018/11/21/react-chat/">
 
 
 
 
 
-  <title>shiliangL</title>
+  <title>更好的理解react-redux | shiliangL</title>
   
 
 
@@ -141,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -235,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -267,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/shiliangL/2018/11/21/react-chat/" itemprop="url">更好的理解react-redux</a></h1>
+          <h1 class="post-title" itemprop="name headline">更好的理解react-redux</h1>
         
 
         <div class="post-meta">
@@ -350,9 +351,7 @@
       
 
       
-        
-          
-            <ul>
+        <ul>
 <li><p>react全家桶,更好的理解redux,用装饰器的写法使用 react-redux，socket-io即时通信</p>
 </li>
 <li><p>本文基于MacOS系统,基本的开发环境安装配置如果没有安装好请自行百度安装</p>
@@ -417,8 +416,6 @@
 <p>密码 cmd5加密+加严 安装 npm i utility -S</p>
 </blockquote>
 <!-- ### node后台服务器开启调试模式nodemon --inspect-brk app.js -->
-          
-        
       
     </div>
     
@@ -433,14 +430,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/shiliangL/tags/react/" rel="tag"> < i class=”fa fa-tag” > react</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -450,10 +453,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -461,6 +465,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -481,8 +489,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -549,6 +566,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#后台数据库mongoDB安装"><span class="nav-number">1.</span> <span class="nav-text">后台数据库mongoDB安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#后端基于node-express开发-后台代码-service文件夹中"><span class="nav-number">2.</span> <span class="nav-text">后端基于node,express开发,后台代码-service文件夹中</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#create-react-app-中使用装饰器"><span class="nav-number"></span> <span class="nav-text">create-react-app 中使用装饰器</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -699,6 +732,10 @@
 
 
   
+  <script type="text/javascript" src="/shiliangL/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/shiliangL/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

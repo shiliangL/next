@@ -1,6 +1,7 @@
 ---
 title: 更好的理解react-redux
 date: 2018-11-21 18:06:15
+comments: true
 categories:
 tags: react
 ---

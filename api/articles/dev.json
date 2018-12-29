@@ -1,0 +1,1 @@
+{"title":"","slug":"dev","date":"2018-12-17T06:46:06.216Z","updated":"2018-12-17T07:06:45.136Z","comments":true,"path":"api/articles/dev.json","photos":[],"link":"","excerpt":"","covers":null,"content":"(() => {\n  const arr = [5, 12, 5, 130, 150];\n  const data = arr.includes(130, fromIndex);\n\n  console.log(data, \"结果\");\n})();\n","categories":[],"tags":[]}

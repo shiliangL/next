@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/next/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/next/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/next/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/next/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/next/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/next/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/next/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="gitHub,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="上一篇文章已经介绍了服务器所需要软件的安装和配置。下面介绍一下 jenkins 关联 GitHub关联，实现 GitHub 代码 push 之后自动触发 jenkins 打包代码并且发布到服务器;  题记 如果你还没有安装配置好对应服务器的环境，可以查看 一套真实前端开发环境搭建+可持续集成+自动化部署实践（第一篇环境搭建配置）  1、github 操作配置生成Personal Access To">
+<meta name="keywords" content="gitHub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端开发环境搭建-可持续集成之jenkins关联GitHub自动打包部署篇">
+<meta property="og:url" content="https://github.com/shiliangL/shiliangL/2018/12/29/前端开发环境搭建-可持续集成-jenkins关联GitHub自动打包部署篇/index.html">
+<meta property="og:site_name" content="shiliangL">
+<meta property="og:description" content="上一篇文章已经介绍了服务器所需要软件的安装和配置。下面介绍一下 jenkins 关联 GitHub关联，实现 GitHub 代码 push 之后自动触发 jenkins 打包代码并且发布到服务器;  题记 如果你还没有安装配置好对应服务器的环境，可以查看 一套真实前端开发环境搭建+可持续集成+自动化部署实践（第一篇环境搭建配置）  1、github 操作配置生成Personal Access To">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c65ff9b394d52?w=2204&h=1020&f=png&s=276892">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c66386387cffc?w=1694&h=2122&f=png&s=433343">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c664fadb039b5?w=2096&h=1212&f=png&s=299520">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c69c08bbb0d1a?w=2198&h=1678&f=png&s=338416">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6a2bb98213be?w=2096&h=1098&f=png&s=171532">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6a41270e2c12?w=3490&h=1584&f=png&s=394497">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6a639c845608?w=3696&h=2164&f=png&s=397222">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6aada71ad40f?w=2642&h=898&f=png&s=296995">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6ad41c0e3c33?w=3124&h=262&f=png&s=38891">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6ae0c090534d?w=3086&h=1004&f=png&s=159203">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6b1656858d21?w=2876&h=910&f=png&s=170674">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6bbb4b38f27c?w=3082&h=762&f=png&s=159947">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6c20eb703fc6?w=3340&h=1118&f=png&s=207307">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6dbf1dc2f89b?w=2872&h=1120&f=png&s=251074">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6e346fdb94f5?w=2870&h=1118&f=png&s=204424">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6fa45311fc1e?w=1612&h=412&f=png&s=52857">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c6fb240a22941?w=2844&h=884&f=png&s=200031">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c70e7fd1eae15?w=3814&h=2324&f=png&s=886917">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c70f5c6b63ae7?w=3820&h=1264&f=png&s=389351">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c711648cb9ba2?w=3840&h=2400&f=png&s=418823">
+<meta property="og:updated_time" content="2018-12-29T14:26:02.709Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端开发环境搭建-可持续集成之jenkins关联GitHub自动打包部署篇">
+<meta name="twitter:description" content="上一篇文章已经介绍了服务器所需要软件的安装和配置。下面介绍一下 jenkins 关联 GitHub关联，实现 GitHub 代码 push 之后自动触发 jenkins 打包代码并且发布到服务器;  题记 如果你还没有安装配置好对应服务器的环境，可以查看 一套真实前端开发环境搭建+可持续集成+自动化部署实践（第一篇环境搭建配置）  1、github 操作配置生成Personal Access To">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/12/19/167c65ff9b394d52?w=2204&h=1020&f=png&s=276892">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/next/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/shiliangL/shiliangL/2018/12/29/前端开发环境搭建-可持续集成-jenkins关联GitHub自动打包部署篇/">
+
+
+
+
+
+  <title>前端开发环境搭建-可持续集成之jenkins关联GitHub自动打包部署篇 | shiliangL</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/next/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">shiliangL</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/next/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/next/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/next/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/next/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/shiliangL/shiliangL/next/2018/12/29/前端开发环境搭建-可持续集成-jenkins关联GitHub自动打包部署篇/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shiliangL">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/next/images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shiliangL">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端开发环境搭建-可持续集成之jenkins关联GitHub自动打包部署篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-29T22:09:40+08:00">
+                2018-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+ 
+      
+      
+
+      
+        <p>上一篇文章已经介绍了服务器所需要软件的安装和配置。下面介绍一下 jenkins 关联 GitHub关联，实现 GitHub 代码 push 之后自动触发 jenkins 打包代码并且发布到服务器;</p>
+<blockquote>
+<p>题记 如果你还没有安装配置好对应服务器的环境，可以查看 <a href="https://juejin.im/post/5c187098f265da616f6fe3f4" target="_blank" rel="noopener">一套真实前端开发环境搭建+可持续集成+自动化部署实践（第一篇环境搭建配置）</a></p>
+</blockquote>
+<h3 id="1、github-操作配置生成Personal-Access-Token"><a href="#1、github-操作配置生成Personal-Access-Token" class="headerlink" title="1、github 操作配置生成Personal Access Token"></a>1、<a href="https://github.com/">github</a> 操作配置生成Personal Access Token</h3><blockquote>
+<p>进入github –&gt; setting –&gt;developers–&gt; Personal Access Token –&gt; Generate new token, 新建一个有读写权限的用户</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c65ff9b394d52?w=2204&amp;h=1020&amp;f=png&amp;s=276892" alt=""></p>
+<blockquote>
+<p>新增一个描述，勾选如图配置，点击生成对应的 token</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c66386387cffc?w=1694&amp;h=2122&amp;f=png&amp;s=433343" alt=""></p>
+<blockquote>
+<p>注意！！！ 生成 token 之后一定要复制记到记事本记录下来，不然之后这个编号就再也看到不了；</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c664fadb039b5?w=2096&amp;h=1212&amp;f=png&amp;s=299520" alt=""></p>
+<h3 id="2、github-设置GitHub-webhooks（具体需要持续集成的项目），新建或者设置现有项目的webhooks选项，url：你之前部署jenkins的服务器的IP-端口-github-webhook-填写完成确认添加。"><a href="#2、github-设置GitHub-webhooks（具体需要持续集成的项目），新建或者设置现有项目的webhooks选项，url：你之前部署jenkins的服务器的IP-端口-github-webhook-填写完成确认添加。" class="headerlink" title="2、github 设置GitHub webhooks（具体需要持续集成的项目），新建或者设置现有项目的webhooks选项，url：你之前部署jenkins的服务器的IP+端口+ github-webhook,填写完成确认添加。"></a>2、<a href="https://github.com/">github</a> 设置GitHub webhooks（具体需要持续集成的项目），新建或者设置现有项目的webhooks选项，url：你之前部署jenkins的服务器的IP+端口+ github-webhook,填写完成确认添加。</h3><p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c69c08bbb0d1a?w=2198&amp;h=1678&amp;f=png&amp;s=338416" alt=""></p>
+<h3 id="3、设置jenkins的github配置"><a href="#3、设置jenkins的github配置" class="headerlink" title="3、设置jenkins的github配置"></a>3、设置jenkins的github配置</h3><blockquote>
+<p>jenkins 安装Github Plugin插件,因为我们在配置jenkins的时候已经安装了所以这里可跳过， 如果没有 key 在jenkins 系统管理–&gt;插件管理–&gt;可选插件中安装。</p>
+</blockquote>
+<blockquote>
+<p>jenkins 新建项目，选择构建自由风格项目</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6a2bb98213be?w=2096&amp;h=1098&amp;f=png&amp;s=171532" alt=""></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6a41270e2c12?w=3490&amp;h=1584&amp;f=png&amp;s=394497" alt=""></p>
+<blockquote>
+<p>完成之后的页面如下，后面我们做关于项目的配置设置都是基于这样页面👇👇👇</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6a639c845608?w=3696&amp;h=2164&amp;f=png&amp;s=397222" alt=""></p>
+<blockquote>
+<p>jenkins 系统管理 –&gt; 系统设置 –&gt; GitHub –&gt; Add GitHub Sever,设置一下jenkins关联 GitHub</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6aada71ad40f?w=2642&amp;h=898&amp;f=png&amp;s=296995" alt=""></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6ad41c0e3c33?w=3124&amp;h=262&amp;f=png&amp;s=38891" alt=""></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6ae0c090534d?w=3086&amp;h=1004&amp;f=png&amp;s=159203" alt=""></p>
+<blockquote>
+<p>按照如下图选择添加配置，这个时候就需要用到了我们第一步生成的 GitHub Personal Access Token，填写完毕确认添加<br><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6b1656858d21?w=2876&amp;h=910&amp;f=png&amp;s=170674" alt=""></p>
+</blockquote>
+<blockquote>
+<p>选择生成的凭证，测试jenkins连接github服务器,如下图说明一切都配置 ok，最后记得在页面底部保存配置<br><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6bbb4b38f27c?w=3082&amp;h=762&amp;f=png&amp;s=159947" alt=""></p>
+</blockquote>
+<h3 id="2、设置jenkins的项目-configure-配置"><a href="#2、设置jenkins的项目-configure-配置" class="headerlink" title="2、设置jenkins的项目 configure 配置"></a>2、设置jenkins的项目 configure 配置</h3><blockquote>
+<p>General 配置<br><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6c20eb703fc6?w=3340&amp;h=1118&amp;f=png&amp;s=207307" alt=""></p>
+</blockquote>
+<blockquote>
+<p>Source Code Management 配置，这里会我在配置的时候会有些坑</p>
+</blockquote>
+<ul>
+<li>坑1、Repository URL地址报错，这里我们填入是项目吃 clone 地址，可以尝试Clone with SSH、Clone with HTTPS两个地址都尝试一下。</li>
+<li>坑2、无法下拉选择配置的权限用户。直接点击 Add 添加一个权限用户以Username with password，直接用 GitHub的登录名称和命名创建。这个时候完成了就应该跳出下拉选项了；</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6dbf1dc2f89b?w=2872&amp;h=1120&amp;f=png&amp;s=251074" alt=""></p>
+<blockquote>
+<p>Build Triggers &amp;&amp; Build Environment &amp;&amp; Bindings 选择配置<br><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6e346fdb94f5?w=2870&amp;h=1118&amp;f=png&amp;s=204424" alt=""></p>
+</blockquote>
+<blockquote>
+<p>Build 项目打包发布配置，添加执行 Shell，由于不同的前端项目技术架构和打包方式不一样，这里需要你根据的你项目，了解一下一些常用shell命令，这里的命令操作可以理解为在你的服务器环境中。这里我以打包 vue 项目为例，构建打包后代码文件解压到nginx的指定目录</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6fa45311fc1e?w=1612&amp;h=412&amp;f=png&amp;s=52857" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">echo $PATH</span><br><span class="line">node -v</span><br><span class="line">npm -v #检查编译环境</span><br><span class="line">npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver</span><br><span class="line">npm install</span><br><span class="line">npm run build #编译项目</span><br><span class="line">cd dist</span><br><span class="line">tar -zcvf dist.tar.gz * #所有文件压缩</span><br><span class="line">tar -zxvf /root/.jenkins/workspace/vue-online-admin/dist/dist.tar.gz -C /usr/share/nginx/html #压缩文件解压到nginx映射目录</span><br><span class="line">cd /root/.jenkins/workspace/vue-online-admin</span><br><span class="line">rm -R dist #删除项目打包后的残留</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c6fb240a22941?w=2844&amp;h=884&amp;f=png&amp;s=200031" alt=""></p>
+<h3 id="4、测试验证成果"><a href="#4、测试验证成果" class="headerlink" title="4、测试验证成果"></a>4、测试验证成果</h3><blockquote>
+<p>所有的流程，这一路配置下来，是期望代码 push 到 GitHub 上的时候触发GitHub 的 webhooks，再利用jenkins完成项目的打包部署。</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c70e7fd1eae15?w=3814&amp;h=2324&amp;f=png&amp;s=886917" alt=""></p>
+<p>GitHub 也显示构建成功<br><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c70f5c6b63ae7?w=3820&amp;h=1264&amp;f=png&amp;s=389351" alt=""></p>
+<blockquote>
+<p>之前已经在服务器上配置启动了nginx，所以直接用你的服务器 ip 访问，How nice ~~，这样一套前端开发环境搭建+可持续集成+自动化部署实践到这来算是圆满完成了实践，当然这只是一个比较粗范的配置，各个项目技术的差异还需要更多细致的配置</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/19/167c711648cb9ba2?w=3840&amp;h=2400&amp;f=png&amp;s=418823" alt=""></p>
+<blockquote>
+<p>后记: 把这个实践记录下来，一是记录一下分享给需要的同学们，二是有个时间和机会去接触一下服务器的东西，还是比较 nice 的。最后谢谢查阅。如果觉得还阔以,点个赞再走呗，老铁~</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/next/tags/gitHub/" rel="tag"> gitHub</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/next/2018/12/22/react移动端适配方案/" rel="next" title="react移动端适配方案">
+                <i class="fa fa-chevron-left"></i> react移动端适配方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/next/images/header.png" alt="shiliangL">
+            
+              <p class="site-author-name" itemprop="name">shiliangL</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/next/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/next/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/next/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shiliangL" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1462999406@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、github-操作配置生成Personal-Access-Token"><span class="nav-text">1、github 操作配置生成Personal Access Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、github-设置GitHub-webhooks（具体需要持续集成的项目），新建或者设置现有项目的webhooks选项，url：你之前部署jenkins的服务器的IP-端口-github-webhook-填写完成确认添加。"><span class="nav-text">2、github 设置GitHub webhooks（具体需要持续集成的项目），新建或者设置现有项目的webhooks选项，url：你之前部署jenkins的服务器的IP+端口+ github-webhook,填写完成确认添加。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、设置jenkins的github配置"><span class="nav-text">3、设置jenkins的github配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、设置jenkins的项目-configure-配置"><span class="nav-text">2、设置jenkins的项目 configure 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、测试验证成果"><span class="nav-text">4、测试验证成果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shiliangL</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/next/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/next/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/next/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/next/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/next/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/next/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/next/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/next/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

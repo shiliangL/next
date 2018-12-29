@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/next/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/next/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/next/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/next/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/next/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/next/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/next/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="react移动端适配方案 本文项目基于create-react-app构建。更多移动端资料推荐   w3cplus 再聊移动端页面的适配  w3cplus 如何在Vue项目中使用vw实现移动端适配  w3cplus 使用Flexible实现手淘H5页面的终端适配  本项目配置源码地址  tips    1234/* 处理 vm 适配图片不显示问题 */img &amp;#123;  content: no">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react移动端适配方案">
+<meta property="og:url" content="https://github.com/shiliangL/shiliangL/2018/12/22/react移动端适配方案/index.html">
+<meta property="og:site_name" content="shiliangL">
+<meta property="og:description" content="react移动端适配方案 本文项目基于create-react-app构建。更多移动端资料推荐   w3cplus 再聊移动端页面的适配  w3cplus 如何在Vue项目中使用vw实现移动端适配  w3cplus 使用Flexible实现手淘H5页面的终端适配  本项目配置源码地址  tips    1234/* 处理 vm 适配图片不显示问题 */img &amp;#123;  content: no">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/22/167d3ba8d648eb46?w=3008&h=1656&f=png&s=307506">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/22/167d3c1fc05d283d?w=2342&h=1074&f=png&s=373052">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/22/167d3e154ebd9eca?w=3236&h=1640&f=png&s=205474">
+<meta property="og:updated_time" content="2018-12-29T14:21:13.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react移动端适配方案">
+<meta name="twitter:description" content="react移动端适配方案 本文项目基于create-react-app构建。更多移动端资料推荐   w3cplus 再聊移动端页面的适配  w3cplus 如何在Vue项目中使用vw实现移动端适配  w3cplus 使用Flexible实现手淘H5页面的终端适配  本项目配置源码地址  tips    1234/* 处理 vm 适配图片不显示问题 */img &amp;#123;  content: no">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/12/22/167d3ba8d648eb46?w=3008&h=1656&f=png&s=307506">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/next/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/shiliangL/shiliangL/2018/12/22/react移动端适配方案/">
+
+
+
+
+
+  <title>react移动端适配方案 | shiliangL</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/next/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">shiliangL</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/next/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/next/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/next/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/next/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/shiliangL/shiliangL/next/2018/12/22/react移动端适配方案/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shiliangL">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/next/images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shiliangL">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">react移动端适配方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-22T22:03:55+08:00">
+                2018-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/next/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+ 
+      
+      
+
+      
+        <h3 id="react移动端适配方案"><a href="#react移动端适配方案" class="headerlink" title="react移动端适配方案"></a>react移动端适配方案</h3><blockquote>
+<p>本文项目基于create-react-app构建。更多移动端资料推荐</p>
+</blockquote>
+<ul>
+<li><p><a href="https://www.w3cplus.com/mobile/vw-layout-in-vue.html" target="_blank" rel="noopener">w3cplus 再聊移动端页面的适配</a></p>
+</li>
+<li><p><a href="https://www.w3cplus.com/css/vw-for-layout.html" target="_blank" rel="noopener">w3cplus 如何在Vue项目中使用vw实现移动端适配</a></p>
+</li>
+<li><p><a href="https://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html" target="_blank" rel="noopener">w3cplus 使用Flexible实现手淘H5页面的终端适配</a></p>
+</li>
+<li><p><a href="https://github.com/shiliangL/react-vw-layout">本项目配置源码地址</a></p>
+<blockquote>
+<p>tips</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 处理 vm 适配图片不显示问题 */</span></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: normal <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1️⃣-项目初始-暴露配置项"><a href="#1️⃣-项目初始-暴露配置项" class="headerlink" title="1️⃣ 项目初始 + 暴露配置项"></a>1️⃣ 项目初始 + 暴露配置项</h3><ul>
+<li>1、create-react-app react-vw-layout 初始化项目</li>
+<li>2、npm run eject 暴露配置项</li>
+</ul>
+<h3 id="2️⃣-postCss插件安装配置"><a href="#2️⃣-postCss插件安装配置" class="headerlink" title="2️⃣ postCss插件安装配置"></a>2️⃣ postCss插件安装配置</h3><blockquote>
+<p>package.json 中添加依赖,并安装</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">"postcss-aspect-ratio-mini"</span>: <span class="string">"0.0.2"</span>,</span><br><span class="line"><span class="comment">//--坑点 已经更新 postcss-preset-env 所以请使用 "postcss-preset-env": "6.0.6"👇</span></span><br><span class="line"><span class="string">"postcss-cssnext"</span>: <span class="string">"^3.1.0"</span>,</span><br><span class="line"><span class="string">"postcss-flexbugs-fixes"</span>: <span class="string">"3.2.0"</span>,</span><br><span class="line"><span class="string">"postcss-loader"</span>: <span class="string">"2.0.8"</span>,</span><br><span class="line"><span class="string">"postcss-px-to-viewport"</span>: <span class="string">"0.0.3"</span>,</span><br><span class="line"><span class="string">"postcss-viewport-units"</span>: <span class="string">"^0.1.4"</span>,</span><br><span class="line"><span class="string">"postcss-write-svg"</span>: <span class="string">"^3.0.1"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>config/webpack.config.dev.js 文件中修改添加配置（开发环境生效）<br>(生产环境打包配置如下，也是一样的在文件夹 config/webpack.config.prod 中修改)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/webpack.config.dev.js</span></span><br><span class="line"><span class="comment">// 文件头部引进依赖</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> resolve = <span class="built_in">require</span>(<span class="string">'resolve'</span>);</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"><span class="keyword">const</span> PnpWebpackPlugin = <span class="built_in">require</span>(<span class="string">'pnp-webpack-plugin'</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>);</span><br><span class="line"><span class="keyword">const</span> CaseSensitivePathsPlugin = <span class="built_in">require</span>(<span class="string">'case-sensitive-paths-webpack-plugin'</span>);</span><br><span class="line"><span class="keyword">const</span> InterpolateHtmlPlugin = <span class="built_in">require</span>(<span class="string">'react-dev-utils/InterpolateHtmlPlugin'</span>);</span><br><span class="line"><span class="keyword">const</span> WatchMissingNodeModulesPlugin = <span class="built_in">require</span>(<span class="string">'react-dev-utils/WatchMissingNodeModulesPlugin'</span>);</span><br><span class="line"><span class="keyword">const</span> ModuleScopePlugin = <span class="built_in">require</span>(<span class="string">'react-dev-utils/ModuleScopePlugin'</span>);</span><br><span class="line"><span class="keyword">const</span> getCSSModuleLocalIdent = <span class="built_in">require</span>(<span class="string">'react-dev-utils/getCSSModuleLocalIdent'</span>);</span><br><span class="line"><span class="keyword">const</span> getClientEnvironment = <span class="built_in">require</span>(<span class="string">'./env'</span>);</span><br><span class="line"><span class="keyword">const</span> paths = <span class="built_in">require</span>(<span class="string">'./paths'</span>);</span><br><span class="line"><span class="keyword">const</span> ManifestPlugin = <span class="built_in">require</span>(<span class="string">'webpack-manifest-plugin'</span>);</span><br><span class="line"><span class="keyword">const</span> ModuleNotFoundPlugin = <span class="built_in">require</span>(<span class="string">'react-dev-utils/ModuleNotFoundPlugin'</span>);</span><br><span class="line"><span class="keyword">const</span> ForkTsCheckerWebpackPlugin = <span class="built_in">require</span>(<span class="string">'fork-ts-checker-webpack-plugin-alt'</span>);</span><br><span class="line"><span class="keyword">const</span> typescriptFormatter = <span class="built_in">require</span>(<span class="string">'react-dev-utils/typescriptFormatter'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 移动端适配添加 - 插入</span></span><br><span class="line"><span class="keyword">const</span> postcssAspectRatioMini = <span class="built_in">require</span>(<span class="string">'postcss-aspect-ratio-mini'</span>);</span><br><span class="line"><span class="keyword">const</span> postcssPxToViewport = <span class="built_in">require</span>(<span class="string">'postcss-px-to-viewport'</span>);</span><br><span class="line"><span class="keyword">const</span> postcssWriteSvg = <span class="built_in">require</span>(<span class="string">'postcss-write-svg'</span>);</span><br><span class="line"><span class="keyword">const</span> postcssCssnext = <span class="built_in">require</span>(<span class="string">'postcss-preset-env'</span>); <span class="comment">//这个插件已经更新 postcss-preset-env 所以请使用 "postcss-preset-env": "6.0.6",</span></span><br><span class="line"><span class="keyword">const</span> postcssViewportUnits = <span class="built_in">require</span>(<span class="string">'postcss-viewport-units'</span>);</span><br><span class="line"><span class="keyword">const</span> cssnano = <span class="built_in">require</span>(<span class="string">'cssnano'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//配置项中添加使用</span></span><br><span class="line"></span><br><span class="line"> &#123;</span><br><span class="line">    <span class="comment">// Options for PostCSS as we reference these options twice</span></span><br><span class="line">    <span class="comment">// Adds vendor prefixing based on your specified browser support in</span></span><br><span class="line">    <span class="comment">// package.json</span></span><br><span class="line">    loader: <span class="built_in">require</span>.resolve(<span class="string">'postcss-loader'</span>),</span><br><span class="line">    options: &#123;</span><br><span class="line">      <span class="comment">// Necessary for external CSS imports to work</span></span><br><span class="line">      <span class="comment">// https://github.com/facebook/create-react-app/issues/2677</span></span><br><span class="line">      ident: <span class="string">'postcss'</span>,</span><br><span class="line">      plugins: <span class="function"><span class="params">()</span> =&gt;</span> [</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">'postcss-flexbugs-fixes'</span>),</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">'postcss-preset-env'</span>)(&#123;</span><br><span class="line">          autoprefixer: &#123;</span><br><span class="line">            flexbox: <span class="string">'no-2009'</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">          stage: <span class="number">3</span>,</span><br><span class="line">        &#125;),</span><br><span class="line"></span><br><span class="line">        <span class="comment">// -----插入适配移动端配置项-----👇</span></span><br><span class="line">        postcssAspectRatioMini(&#123;&#125;),</span><br><span class="line">        postcssPxToViewport(&#123;</span><br><span class="line">          viewportWidth: <span class="number">750</span>, <span class="comment">// (Number) The width of the viewport.</span></span><br><span class="line">          viewportHeight: <span class="number">1334</span>, <span class="comment">// (Number) The height of the viewport.</span></span><br><span class="line">          unitPrecision: <span class="number">3</span>, <span class="comment">// (Number) The decimal numbers to allow the REM units to grow to.</span></span><br><span class="line">          viewportUnit: <span class="string">'vw'</span>, <span class="comment">// (String) Expected units.</span></span><br><span class="line">          selectorBlackList: [<span class="string">'.ignore'</span>, <span class="string">'.hairlines'</span>], <span class="comment">// (Array) The selectors to ignore and leave as px.</span></span><br><span class="line">          minPixelValue: <span class="number">1</span>, <span class="comment">// (Number) Set the minimum pixel value to replace.</span></span><br><span class="line">          mediaQuery: <span class="literal">false</span> <span class="comment">// (Boolean) Allow px to be converted in media queries.</span></span><br><span class="line">        &#125;),</span><br><span class="line">        postcssWriteSvg(&#123;</span><br><span class="line">          utf8: <span class="literal">false</span></span><br><span class="line">        &#125;),</span><br><span class="line">        postcssCssnext(&#123;&#125;),</span><br><span class="line">        postcssViewportUnits(&#123;&#125;),</span><br><span class="line">        cssnano(&#123;</span><br><span class="line">          <span class="comment">//旧的 --坑点</span></span><br><span class="line">          <span class="comment">// preset: "advanced",</span></span><br><span class="line">          <span class="comment">// autoprefixer: false,</span></span><br><span class="line">          <span class="comment">// "postcss-zindex": false</span></span><br><span class="line">          <span class="comment">//新配置继续使用高级配置,按照这个配置</span></span><br><span class="line">          <span class="string">"cssnano-preset-advanced"</span>: &#123;</span><br><span class="line">            zindex: <span class="literal">false</span>,</span><br><span class="line">            autoprefixer: <span class="literal">false</span></span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;)</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="3️⃣测试验证"><a href="#3️⃣测试验证" class="headerlink" title="3️⃣测试验证"></a>3️⃣测试验证</h3><blockquote>
+<p>修改 App.css 文件</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.App</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">750px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#409eff</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#ffffff</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>npm start 启动项目，打开控制台，这个时候已经生效了</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/22/167d3ba8d648eb46?w=3008&amp;h=1656&amp;f=png&amp;s=307506" alt=""></p>
+<blockquote>
+<p>配置好生产环境之后验证,npm run build,这个时候，生产打包已经生效了。</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/22/167d3c1fc05d283d?w=2342&amp;h=1074&amp;f=png&amp;s=373052" alt=""></p>
+<h3 id="4️⃣-一些兼兼容性hacks处理"><a href="#4️⃣-一些兼兼容性hacks处理" class="headerlink" title="4️⃣ 一些兼兼容性hacks处理"></a>4️⃣ 一些兼兼容性hacks处理</h3><blockquote>
+<p>修改 public/index.html, 引入阿里的 cdn</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html body 后添加--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//g.alicdn.com/fdilab/lib3rd/viewport-units-buggyfill/0.6.2/??viewport-units-buggyfill.hacks.min.js,viewport-units-buggyfill.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.viewportUnitsBuggyfill.init(&#123;</span></span><br><span class="line"><span class="javascript">      hacks: <span class="built_in">window</span>.viewportUnitsBuggyfillHacks</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 验证输出</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> winDPI = <span class="built_in">window</span>.devicePixelRatio;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> uAgent = <span class="built_in">window</span>.navigator.userAgent;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> screenHeight = <span class="built_in">window</span>.screen.height;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> screenWidth = <span class="built_in">window</span>.screen.width;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> winWidth = <span class="built_in">window</span>.innerWidth;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> winHeight = <span class="built_in">window</span>.innerHeight;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(winDPI, <span class="string">"设备 DPI"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(uAgent, <span class="string">"客户端"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(screenWidth, <span class="string">"屏幕宽度"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(winHeight, <span class="string">"屏幕高度"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(winWidth, <span class="string">"Windows Width"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(winHeight, <span class="string">"Windows Height"</span>);</span></span><br><span class="line"><span class="undefined">  &#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/22/167d3e154ebd9eca?w=3236&amp;h=1640&amp;f=png&amp;s=205474" alt=""></p>
+<blockquote>
+<p>至此配置算是完成了,更多其中插件的配置,还需要了解一下官方的配置使用,此外插件和可行性方案都会更新,这里只是作为自己学习实际的一个可行性方案实践的过程,如果有更多更新方案可以留言告知。谢阅~</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/next/tags/react/" rel="tag"> react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/next/2018/12/18/前端开发环境搭建-可持续集成-自动化部署实践-环境搭建配置篇/" rel="next" title="前端开发环境搭建-可持续集成之自动化部署实践-环境搭建配置篇">
+                <i class="fa fa-chevron-left"></i> 前端开发环境搭建-可持续集成之自动化部署实践-环境搭建配置篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/next/2018/12/29/前端开发环境搭建-可持续集成-jenkins关联GitHub自动打包部署篇/" rel="prev" title="前端开发环境搭建-可持续集成之jenkins关联GitHub自动打包部署篇">
+                前端开发环境搭建-可持续集成之jenkins关联GitHub自动打包部署篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/next/images/header.png" alt="shiliangL">
+            
+              <p class="site-author-name" itemprop="name">shiliangL</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/next/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/next/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/next/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shiliangL" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1462999406@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#react移动端适配方案"><span class="nav-text">react移动端适配方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1️⃣-项目初始-暴露配置项"><span class="nav-text">1️⃣ 项目初始 + 暴露配置项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2️⃣-postCss插件安装配置"><span class="nav-text">2️⃣ postCss插件安装配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3️⃣测试验证"><span class="nav-text">3️⃣测试验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4️⃣-一些兼兼容性hacks处理"><span class="nav-text">4️⃣ 一些兼兼容性hacks处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shiliangL</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/next/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/next/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/next/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/next/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/next/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/next/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/next/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/next/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/next/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
